@@ -25,3 +25,125 @@ gust-beam:
     rotation: 0
     vertical-force: 10
     horizontal-force: 20
+gustleap:
+    spell-class: "instant.LeapSpell"
+    name: gustleap
+    rotation: 0
+    forward-velocity: 40
+    upward-velocity: 15
+    cancel-damage: true
+    client-only: false
+    cooldown: 10
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You whip up the air around you to leap forward!
+    str-cast-others: "%a whips up the air around them to leap forward!"
+gustlaunch:
+    spell-class: "instant.LeapSpell"
+    name: gustlaunch
+    rotation: 0
+    forward-velocity: 10
+    upward-velocity: 60
+    cancel-damage: true
+    client-only: false
+    cooldown: 10
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You whip up the air around you to launch yourself into the air!
+    str-cast-others: "%a whips up the air around them to launch themselves into the air!"
+firebolt:
+    spell-class: ".instant.ParticleProjectileSpell"
+    projectile-velocity: 10
+    tick-interval: 2
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: dripLava
+    paticle-speed: 0
+    particle-count: 20
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    max-distance: 10
+    max-duration: 40
+    hit-radius: 0.5
+    vertical-hit-radius: 0.5
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: false
+    hit-air-during: false
+    stop-on-hit-entity: true
+    stop-on-hit-ground: true
+    spell: firebolt-hit
+    cooldown: 10
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You hurl a firebolt!
+    str-cast-others: "%a hurls a firebolt!"
+firebolt-hit:
+    spell-class: ".targeted.PainSpell"
+    name: firebolt-hit
+    ignore-armor: false
+    damage: 6
+    obey-los: false
+    target-players: true
+flamesurge:
+    spell-class: ".instant.ParticleProjectileSpell"
+    projectile-velocity: 10
+    tick-interval: 2
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: dripLava
+    paticle-speed: 0
+    particle-count: 40
+    particle-horizontal-spread: 0.4
+    particle-vertical-spread: 0.4
+    max-distance: 20
+    max-duration: 80
+    hit-radius: 1.0
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: false
+    hit-air-during: false
+    stop-on-hit-entity: true
+    stop-on-hit-ground: true
+    spell: flamesurge-hit-aoe
+    cooldown: 10
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You hurl a firebolt!
+    str-cast-others: "%a hurls a firebolt!"
+flamesurge-hit-aoe:
+    spell-class: ".targeted.AreaEffectSpell"
+    name: flamesurge-hit-aoe
+    horizontal-radius: 2
+    vertical-radius: 2
+    point-blanke: true
+    cone: 0
+    fail-if-no-targets: false
+    max-targets: 0
+    spell-source-in-center: true
+    spells:
+        - flamesurge-hit-pain
+        - flamesurge-hit-ignite
+flamesurge-hit-pain:
+    spell-class: ".targeted.PainSpell"
+    name: flamesurge-hit-pain
+    ignore-armor: false
+    damage: 8
+    obey-los: false
+    target-players: true
+flamesurge-hit-ignite:
+    spell-class: ".targeted.CombustSpell"
+    name: flamesurge-hit-ignite
+    fire-ticks: 100
+    fire-tick-damage: 1
+    prevent-immunity: false
+    check-plugins: true
