@@ -11,7 +11,7 @@ gust:
     beam-horiz-offset: -1.0
     beam-vert-offset: -0.5
     max-distance: 20
-    interval: 5
+    interval: 2
     cost: 
         - redstone 10
     str-cost: 10 redstone
@@ -21,7 +21,7 @@ gust:
 gust-beam:
     spell-class: ".targeted.ForcetossSpell"
     name: gust-beam
-    damage: 4
+    damage: 2
     rotation: 0
     vertical-force: 10
     horizontal-force: 20
@@ -53,8 +53,9 @@ gustlaunch:
     str-cost: "10 redstone"
     str-cast-self: You whip up the air around you to launch yourself into the air!
     str-cast-others: "%a whips up the air around them to launch themselves into the air!"
-firebolt:
+flamebolt:
     spell-class: ".instant.ParticleProjectileSpell"
+    name: flamebolt
     projectile-velocity: 10
     tick-interval: 2
     projectile-gravity: 0
@@ -76,16 +77,16 @@ firebolt:
     hit-air-during: false
     stop-on-hit-entity: true
     stop-on-hit-ground: true
-    spell: firebolt-hit
+    spell: flamebolt-hit
     cooldown: 10
     cost:
         - redstone 10
     str-cost: "10 redstone"
-    str-cast-self: You hurl a firebolt!
-    str-cast-others: "%a hurls a firebolt!"
-firebolt-hit:
+    str-cast-self: You hurl a flamebolt!
+    str-cast-others: "%a hurls a flamebolt!"
+flamebolt-hit:
     spell-class: ".targeted.PainSpell"
-    name: firebolt-hit
+    name: flamebolt-hit
     ignore-armor: false
     damage: 6
     obey-los: false
@@ -118,14 +119,14 @@ flamesurge:
     cost:
         - redstone 10
     str-cost: "10 redstone"
-    str-cast-self: You hurl a firebolt!
-    str-cast-others: "%a hurls a firebolt!"
+    str-cast-self: You hurl a flamesurge!
+    str-cast-others: "%a hurls a flamesurge!"
 flamesurge-hit-aoe:
     spell-class: ".targeted.AreaEffectSpell"
     name: flamesurge-hit-aoe
     horizontal-radius: 2
     vertical-radius: 2
-    point-blanke: true
+    point-blank: true
     cone: 0
     fail-if-no-targets: false
     max-targets: 0
@@ -137,7 +138,7 @@ flamesurge-hit-pain:
     spell-class: ".targeted.PainSpell"
     name: flamesurge-hit-pain
     ignore-armor: false
-    damage: 8
+    damage: 7
     obey-los: false
     target-players: true
 flamesurge-hit-ignite:
@@ -147,3 +148,92 @@ flamesurge-hit-ignite:
     fire-tick-damage: 1
     prevent-immunity: false
     check-plugins: true
+incinerate:
+    spell-class: ".targeted.AreaEffectSpell"
+    name: incinerate
+    horizontal-radius: 8
+    vertical-radius: 4
+    point-blank: true
+    cone: 0
+    fail-if-no-targets: true
+    max-targets: 0
+    spell-source-in-center: true
+    spells:
+        - incinerate-pain
+        - incinerate-exhaust
+    cooldown: 60
+    cost:
+        - redstone 30
+    str-cost: "30 redstone"
+    str-cast-self: "You consume the fires afflicting nearby foes, incinerating them!"
+    str-cast-others: "%a consumes the fires afflicting nearby foes, incinerating them!"
+    target-modifiers:
+        - onfire true required
+incinerate-pain:
+    spell-class: ".targeted.PainSpell"
+    name: flamesurge-hit-pain
+    ignore-armor: false
+    damage: 10
+    obey-los: false
+    target-players: true
+    target-modifiers:
+        - onfire true required
+incinerate-exhaust:
+    spell-class: ".targeted.CleanseSpell"
+    name: incinerate-exhaust
+    target-self: false
+    remove:
+    - fire
+    beneficial: false
+    target-modifiers:
+        - onfire true required
+rootbind:
+    spell-class: ".instant.BeamSpell"
+    name: rootbind
+    description: Root and damage enemies in a line in front of you.
+    cooldown: 10
+    spell: rootbind-multi
+    hit-radius: 3
+    vertical-hit-radius: 8
+    y-offset: 0
+    rotation: 0
+    beam-horiz-offset: -1.0
+    beam-vert-offset: -0.5
+    max-distance: 20
+    interval: 2
+    cost: 
+        - redstone 10
+    str-cost: 10 redstone
+    str-no-target: You can't cast gust right now.
+    str-cast-self: You summon a gust of wind!
+    str-cast-others: "%a summons a gust of wind!"
+rootbind-multi:
+    spell-class: ".MultiSpell"
+    name: rootbind-multi
+    spells:
+        - rootbind-slow
+        - rootbind-jump
+        - rootbind-pain
+rootbind-slow:
+    spell-class: "targeted.PotionEffectSpell"
+    type: slow
+    duration: 6
+    strength: 7
+    ambient: false
+    hidden: false
+    targeted: true
+rootbind-jump:
+    spell-class: ".targeted.PotionEffectSpell"
+    type: jump
+    duration: 6
+    strength: -7
+    ambient: false
+    hidden: false
+    targeted: true
+rootbind-pain:
+    spell-class: ".targeted.PainSpell"
+    name: rootbind-pain
+    ignore-armor: false
+    damage: 4
+    obey-los: false
+    target-players: true
