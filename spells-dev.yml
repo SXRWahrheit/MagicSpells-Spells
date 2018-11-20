@@ -1,0 +1,27 @@
+gust:
+    spell-class: ".instant.BeamSpell"
+    name: gust
+    description: Push back enemies in a line in front of you.
+    cooldown: 10
+    spell: gust-beam
+    hit-radius: 3
+    vertical-hit-radius: 8
+    y-offset: 0
+    rotation: 0
+    beam-horiz-offset: -1.0
+    beam-vert-offset: -0.5
+    max-distance: 20
+    interval: 5
+    cost: 
+        - redstone 10
+    str-cost: 10 redstone
+    str-no-target: You can't cast gust right now.
+    str-cast-self: You summon a gust of wind!
+    str-cast-others: "%a summons a gust of wind!"
+gust-beam:
+    spell-class: ".targeted.ForcetossSpell"
+    name: gust-beam
+    damage: 4
+    rotation: 0
+    vertical-force: 10
+    horizontal-force: 20
