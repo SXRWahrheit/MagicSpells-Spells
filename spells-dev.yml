@@ -26,7 +26,7 @@ gust-beam:
     vertical-force: 10
     horizontal-force: 20
 gustleap:
-    spell-class: "instant.LeapSpell"
+    spell-class: ".instant.LeapSpell"
     name: gustleap
     rotation: 0
     forward-velocity: 40
@@ -40,7 +40,7 @@ gustleap:
     str-cast-self: You whip up the air around you to leap forward!
     str-cast-others: "%a whips up the air around them to leap forward!"
 gustlaunch:
-    spell-class: "instant.LeapSpell"
+    spell-class: ".instant.LeapSpell"
     name: gustlaunch
     rotation: 0
     forward-velocity: 10
@@ -115,7 +115,7 @@ flamesurge:
     stop-on-hit-entity: true
     stop-on-hit-ground: true
     spell: flamesurge-hit-aoe
-    cooldown: 10
+    cooldown: 20
     cost:
         - redstone 10
     str-cost: "10 redstone"
@@ -204,18 +204,19 @@ rootbind:
     cost: 
         - redstone 10
     str-cost: 10 redstone
-    str-no-target: You can't cast gust right now.
-    str-cast-self: You summon a gust of wind!
-    str-cast-others: "%a summons a gust of wind!"
+    str-no-target: You can't cast rootbind right now.
+    str-cast-self: You send out roots to bind your enemies!
+    str-cast-others: "%a sends out roots to bind their enemies!"
 rootbind-multi:
     spell-class: ".MultiSpell"
     name: rootbind-multi
     spells:
-        - rootbind-slow
-        - rootbind-jump
         - rootbind-pain
+        - rootbind-slow(delay=20)
+        - rootbind-jump(delay=20)
 rootbind-slow:
-    spell-class: "targeted.PotionEffectSpell"
+    spell-class: ".targeted.PotionEffectSpell"
+    name: rootbind-slow
     type: slow
     duration: 6
     strength: 7
@@ -224,6 +225,7 @@ rootbind-slow:
     targeted: true
 rootbind-jump:
     spell-class: ".targeted.PotionEffectSpell"
+    name: rootbind-jump
     type: jump
     duration: 6
     strength: -7
@@ -233,6 +235,61 @@ rootbind-jump:
 rootbind-pain:
     spell-class: ".targeted.PainSpell"
     name: rootbind-pain
+    ignore-armor: false
+    damage: 4
+    obey-los: false
+    target-players: true
+rootsurge:
+    spell-class: ".targeted.AreaEffectSpell"
+    name: rootsurge
+    description: Root and bind enemies in a large cone in front of you.
+    horizontal-radius: 8
+    vertical-radius: 2
+    point-blank: true
+    cone: 60
+    fail-if-no-targets: false
+    max-targets: 0
+    spell-source-in-center: true
+    spells:
+        - rootsurge-pain
+        - rootsurge-slow(delay=20)
+        - rootsurge-jump(delay=20)
+    cooldown: 60
+    cost:
+        - redstone 30
+    str-cost: "30 redstone"
+    str-cast-self: "You send out a rootsurge to bind your enemies!"
+    str-cast-others: "%a sends out a rootsurge to bind their enemies!"
+    effects:
+        Roots:
+            position: special
+            effect: Particles
+            horiz-spread: 0.1
+            vert-spread: 0.1
+            particle-name: blockcrack_17_0
+            count: 20
+            speed: 0
+rootsurge-slow:
+    spell-class: ".targeted.PotionEffectSpell"
+    name: rootsurge-slow
+    type: slow
+    duration: 120
+    strength: 7
+    ambient: false
+    hidden: false
+    targeted: true
+rootsurge-jump:
+    spell-class: ".targeted.PotionEffectSpell"
+    name: rootsurge-jump
+    type: jump
+    duration: 120
+    strength: -7
+    ambient: false
+    hidden: false
+    targeted: true
+rootsurge-pain:
+    spell-class: ".targeted.PainSpell"
+    name: rootsurge-pain
     ignore-armor: false
     damage: 4
     obey-los: false
