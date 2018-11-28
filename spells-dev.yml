@@ -301,7 +301,7 @@ enchantarrows-earth:
     cooldown: 300
     can-cast-with-item: true
     can-cast-by-command: true
-    command-to-execute: "ex run EarthArrows def:%a"
+    command-to-execute: "ex run EarthArrows def:<server.match_player[%a]>"
     cost:
         - redstone 20
     str-cost: "20 redstone"
