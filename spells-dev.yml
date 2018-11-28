@@ -294,3 +294,15 @@ rootsurge-pain:
     damage: 4
     obey-los: false
     target-players: true
+enchantarrows-earth:
+    spell-class: ".ExternalCommandSpell"
+    name: enchantarrows-earth
+    description: Enchant your arrows with earth magic, briefly rooting your target on-hit.
+    cooldown: 300
+    can-cast-with-item: true
+    can-cast-by-command: true
+    command-to-execute: "ex run EarthArrows def:%a"
+    cost:
+        - redstone 20
+    str-cost: "20 redstone"
+    str-cast-self: "You enchant your arrows with earth magic."
