@@ -1,0 +1,320 @@
+gust:
+    spell-class: ".instant.BeamSpell"
+    name: gust
+    description: Push back enemies in a line in front of you.
+    cooldown: 10
+    spell: gust-beam
+    hit-radius: 3
+    vertical-hit-radius: 8
+    y-offset: 0
+    rotation: 0
+    beam-horiz-offset: -1.0
+    beam-vert-offset: -0.5
+    max-distance: 20
+    interval: 2
+    cost: 
+        - redstone 10
+    str-cost: 10 redstone
+    str-no-target: You can't cast gust right now.
+    str-cast-self: You summon a gust of wind!
+    str-cast-others: "%a summons a gust of wind!"
+gust-beam:
+    spell-class: ".targeted.ForcetossSpell"
+    name: gust-beam
+    damage: 2
+    rotation: 0
+    vertical-force: 10
+    horizontal-force: 20
+gustleap:
+    spell-class: ".instant.LeapSpell"
+    name: gustleap
+    rotation: 0
+    forward-velocity: 40
+    upward-velocity: 15
+    cancel-damage: true
+    client-only: false
+    cooldown: 10
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You whip up the air around you to leap forward!
+    str-cast-others: "%a whips up the air around them to leap forward!"
+gustlaunch:
+    spell-class: ".instant.LeapSpell"
+    name: gustlaunch
+    rotation: 0
+    forward-velocity: 10
+    upward-velocity: 60
+    cancel-damage: true
+    client-only: false
+    cooldown: 10
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You whip up the air around you to launch yourself into the air!
+    str-cast-others: "%a whips up the air around them to launch themselves into the air!"
+flamebolt:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: flamebolt
+    projectile-velocity: 10
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: flame
+    paticle-speed: 0
+    particle-count: 20
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    max-distance: 10
+    max-duration: 40
+    hit-radius: 0.75
+    vertical-hit-radius: 0.75
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: false
+    hit-air-during: false
+    stop-on-hit-entity: true
+    stop-on-hit-ground: true
+    spell: flamebolt-hit
+    spell-on-hit-entity: flamebolt-hit
+    cooldown: 10
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You hurl a flamebolt!
+    str-cast-others: "%a hurls a flamebolt!"
+flamebolt-hit:
+    spell-class: ".targeted.PainSpell"
+    name: flamebolt-hit
+    ignore-armor: false
+    damage: 6
+    obey-los: false
+    target-players: true
+    check-plugins: true
+flamesurge:
+    spell-class: ".instant.ParticleProjectileSpell"
+    projectile-velocity: 10
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: flame
+    paticle-speed: 0
+    particle-count: 40
+    particle-horizontal-spread: 0.4
+    particle-vertical-spread: 0.4
+    max-distance: 20
+    max-duration: 80
+    hit-radius: 1.25
+    vertical-hit-radius: 1.25
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: false
+    hit-air-during: false
+    stop-on-hit-entity: true
+    stop-on-hit-ground: true
+    spell: flamesurge-hit-aoe
+    cooldown: 20
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You hurl a flamesurge!
+    str-cast-others: "%a hurls a flamesurge!"
+flamesurge-hit-aoe:
+    spell-class: ".targeted.AreaEffectSpell"
+    name: flamesurge-hit-aoe
+    horizontal-radius: 2
+    vertical-radius: 2
+    point-blank: true
+    cone: 0
+    fail-if-no-targets: false
+    max-targets: 0
+    spell-source-in-center: true
+    spells:
+        - flamesurge-hit-pain
+        - flamesurge-hit-ignite
+flamesurge-hit-pain:
+    spell-class: ".targeted.PainSpell"
+    name: flamesurge-hit-pain
+    ignore-armor: false
+    damage: 7
+    obey-los: false
+    target-players: true
+flamesurge-hit-ignite:
+    spell-class: ".targeted.CombustSpell"
+    name: flamesurge-hit-ignite
+    fire-ticks: 100
+    fire-tick-damage: 1
+    prevent-immunity: true
+    check-plugins: true
+searingflames:
+    spell-class: ".targeted.AreaEffectSpell"
+    name: searingflames
+    horizontal-radius: 8
+    vertical-radius: 4
+    point-blank: true
+    cone: 0
+    fail-if-no-targets: true
+    max-targets: 0
+    spell-source-in-center: true
+    spells:
+        - searingflames-pain
+        - searingflames-exhaust
+        - searingflames-ignite
+    cooldown: 60
+    cost:
+        - redstone 30
+    str-cost: "30 redstone"
+    str-cast-self: "You unleash searing flames, consuming the fires afflicting burning foes and igniting all others!"
+    str-cast-others: "%a unleashes searing flames, consuming the fires afflicting burning foes and igniting all others!"
+    target-modifiers:
+        - onfire true required
+searingflames-pain:
+    spell-class: ".targeted.PainSpell"
+    name: searingflames-pain
+    ignore-armor: false
+    damage: 10
+    obey-los: false
+    target-players: true
+    target-modifiers:
+        - onfire true required
+searingflames-exhaust:
+    spell-class: ".targeted.CleanseSpell"
+    name: searingflames-exhaust
+    target-self: false
+    remove:
+    - fire
+    beneficial: false
+    target-modifiers:
+        - onfire true required
+searingflames-ignite:
+    spell-class: ".targeted.CombustSpell"
+    name: searingflames-ignite
+    fire-ticks: 100
+    fire-tick-damage: 2
+    prevent-immunity: true
+    check-plugins: true
+    target-modifiers:
+        - onfire false required
+rootbind:
+    spell-class: ".instant.BeamSpell"
+    name: rootbind
+    description: Root and damage enemies in a line in front of you.
+    cooldown: 10
+    spell: rootbind-multi
+    hit-radius: 3
+    vertical-hit-radius: 8
+    y-offset: 0
+    rotation: 0
+    beam-horiz-offset: -1.0
+    beam-vert-offset: -0.5
+    max-distance: 20
+    interval: 2
+    cost: 
+        - redstone 10
+    str-cost: 10 redstone
+    str-no-target: You can't cast rootbind right now.
+    str-cast-self: You send out roots to bind your enemies!
+    str-cast-others: "%a sends out roots to bind their enemies!"
+rootbind-multi:
+    spell-class: ".MultiSpell"
+    name: rootbind-multi
+    spells:
+        - rootbind-pain
+        - rootbind-slow(delay=20)
+        - rootbind-jump(delay=20)
+rootbind-slow:
+    spell-class: ".targeted.PotionEffectSpell"
+    name: rootbind-slow
+    type: slow
+    duration: 6
+    strength: 7
+    ambient: false
+    hidden: false
+    targeted: true
+rootbind-jump:
+    spell-class: ".targeted.PotionEffectSpell"
+    name: rootbind-jump
+    type: jump
+    duration: 6
+    strength: -7
+    ambient: false
+    hidden: false
+    targeted: true
+rootbind-pain:
+    spell-class: ".targeted.PainSpell"
+    name: rootbind-pain
+    ignore-armor: false
+    damage: 4
+    obey-los: false
+    target-players: true
+rootsurge:
+    spell-class: ".targeted.AreaEffectSpell"
+    name: rootsurge
+    description: Root and bind enemies in a large cone in front of you.
+    horizontal-radius: 8
+    vertical-radius: 2
+    point-blank: true
+    cone: 60
+    fail-if-no-targets: false
+    max-targets: 0
+    spell-source-in-center: true
+    spells:
+        - rootsurge-pain
+        - rootsurge-slow(delay=20)
+        - rootsurge-jump(delay=20)
+    cooldown: 60
+    cost:
+        - redstone 30
+    str-cost: "30 redstone"
+    str-cast-self: "You send out a rootsurge to bind your enemies!"
+    str-cast-others: "%a sends out a rootsurge to bind their enemies!"
+    effects:
+        Roots:
+            position: special
+            effect: Particles
+            horiz-spread: 0.1
+            vert-spread: 0.1
+            particle-name: blockcrack_17_0
+            count: 20
+            speed: 0
+rootsurge-slow:
+    spell-class: ".targeted.PotionEffectSpell"
+    name: rootsurge-slow
+    type: slow
+    duration: 120
+    strength: 7
+    ambient: false
+    hidden: false
+    targeted: true
+rootsurge-jump:
+    spell-class: ".targeted.PotionEffectSpell"
+    name: rootsurge-jump
+    type: jump
+    duration: 120
+    strength: -7
+    ambient: false
+    hidden: false
+    targeted: true
+rootsurge-pain:
+    spell-class: ".targeted.PainSpell"
+    name: rootsurge-pain
+    ignore-armor: false
+    damage: 4
+    obey-los: false
+    target-players: true
+enchantarrows-earth:
+    spell-class: ".ExternalCommandSpell"
+    name: enchantarrows-earth
+    description: Enchant your arrows with earth magic, briefly rooting your target on-hit.
+    cooldown: 300
+    can-cast-with-item: true
+    can-cast-by-command: true
+    command-to-execute: "ex run EarthArrows def:<server.match_player[%a]>"
+    cost:
+        - redstone 20
+    str-cost: "20 redstone"
+    str-cast-self: "You enchant your arrows with earth magic."
