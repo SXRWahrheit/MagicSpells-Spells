@@ -57,18 +57,18 @@ flamebolt:
     spell-class: ".instant.ParticleProjectileSpell"
     name: flamebolt
     projectile-velocity: 10
-    tick-interval: 2
+    tick-interval: 1
     projectile-gravity: 0
     projectile-spread: 0
-    particle-name: dripLava
+    particle-name: flame
     paticle-speed: 0
     particle-count: 20
     particle-horizontal-spread: 0.2
     particle-vertical-spread: 0.2
     max-distance: 10
     max-duration: 40
-    hit-radius: 0.5
-    vertical-hit-radius: 0.5
+    hit-radius: 0.75
+    vertical-hit-radius: 0.75
     render-distance: 100
     hit-players: true
     hit-non-players: true
@@ -78,6 +78,7 @@ flamebolt:
     stop-on-hit-entity: true
     stop-on-hit-ground: true
     spell: flamebolt-hit
+    spell-on-hit-entity: flamebolt-hit
     cooldown: 10
     cost:
         - redstone 10
@@ -91,21 +92,22 @@ flamebolt-hit:
     damage: 6
     obey-los: false
     target-players: true
+    check-plugins: true
 flamesurge:
     spell-class: ".instant.ParticleProjectileSpell"
     projectile-velocity: 10
-    tick-interval: 2
+    tick-interval: 1
     projectile-gravity: 0
     projectile-spread: 0
-    particle-name: dripLava
+    particle-name: flame
     paticle-speed: 0
     particle-count: 40
     particle-horizontal-spread: 0.4
     particle-vertical-spread: 0.4
     max-distance: 20
     max-duration: 80
-    hit-radius: 1.0
-    vertical-hit-radius: 1.0
+    hit-radius: 1.25
+    vertical-hit-radius: 1.25
     render-distance: 100
     hit-players: true
     hit-non-players: true
@@ -146,11 +148,11 @@ flamesurge-hit-ignite:
     name: flamesurge-hit-ignite
     fire-ticks: 100
     fire-tick-damage: 1
-    prevent-immunity: false
+    prevent-immunity: true
     check-plugins: true
-incinerate:
+searingflames:
     spell-class: ".targeted.AreaEffectSpell"
-    name: incinerate
+    name: searingflames
     horizontal-radius: 8
     vertical-radius: 4
     point-blank: true
@@ -159,34 +161,44 @@ incinerate:
     max-targets: 0
     spell-source-in-center: true
     spells:
-        - incinerate-pain
-        - incinerate-exhaust
+        - searingflames-pain
+        - searingflames-exhaust
+        - searingflames-ignite
     cooldown: 60
     cost:
         - redstone 30
     str-cost: "30 redstone"
-    str-cast-self: "You consume the fires afflicting nearby foes, incinerating them!"
-    str-cast-others: "%a consumes the fires afflicting nearby foes, incinerating them!"
+    str-cast-self: "You unleash searing flames, consuming the fires afflicting burning foes and igniting all others!"
+    str-cast-others: "%a unleashes searing flames, consuming the fires afflicting burning foes and igniting all others!"
     target-modifiers:
         - onfire true required
-incinerate-pain:
+searingflames-pain:
     spell-class: ".targeted.PainSpell"
-    name: flamesurge-hit-pain
+    name: searingflames-pain
     ignore-armor: false
     damage: 10
     obey-los: false
     target-players: true
     target-modifiers:
         - onfire true required
-incinerate-exhaust:
+searingflames-exhaust:
     spell-class: ".targeted.CleanseSpell"
-    name: incinerate-exhaust
+    name: searingflames-exhaust
     target-self: false
     remove:
     - fire
     beneficial: false
     target-modifiers:
         - onfire true required
+searingflames-ignite:
+    spell-class: ".targeted.CombustSpell"
+    name: searingflames-ignite
+    fire-ticks: 100
+    fire-tick-damage: 2
+    prevent-immunity: true
+    check-plugins: true
+    target-modifiers:
+        - onfire false required
 rootbind:
     spell-class: ".instant.BeamSpell"
     name: rootbind
