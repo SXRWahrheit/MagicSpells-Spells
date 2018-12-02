@@ -51,8 +51,8 @@ gustlaunch:
     cost:
         - redstone 10
     str-cost: "10 redstone"
-    str-cast-self: You whip up the air around you to launch yourself into the air!
-    str-cast-others: "%a whips up the air around them to launch themselves into the air!"
+    str-cast-self: You whip up the air around you to launch yourself into the sky!
+    str-cast-others: "%a whips up the air around them to launch themselves into the sky!"
 flamebolt:
     spell-class: ".instant.ParticleProjectileSpell"
     name: flamebolt
