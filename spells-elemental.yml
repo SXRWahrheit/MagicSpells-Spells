@@ -61,7 +61,7 @@ flamebolt:
     projectile-gravity: 0
     projectile-spread: 0
     particle-name: flame
-    paticle-speed: 0
+    particle-speed: 0.01
     particle-count: 20
     particle-horizontal-spread: 0.2
     particle-vertical-spread: 0.2
@@ -100,7 +100,7 @@ flamesurge:
     projectile-gravity: 0
     projectile-spread: 0
     particle-name: flame
-    paticle-speed: 0
+    particle-speed: 0.01
     particle-count: 40
     particle-horizontal-spread: 0.4
     particle-vertical-spread: 0.4
