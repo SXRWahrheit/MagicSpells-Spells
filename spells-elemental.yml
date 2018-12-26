@@ -102,8 +102,9 @@ flamesurge:
     particle-name: flame
     particle-speed: 0.01
     particle-count: 40
-    particle-horizontal-spread: 0.4
-    particle-vertical-spread: 0.4
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
     max-distance: 20
     max-duration: 80
     hit-radius: 1.25
@@ -123,6 +124,19 @@ flamesurge:
     str-cost: "10 redstone"
     str-cast-self: You hurl a flamesurge!
     str-cast-others: "%a hurls a flamesurge!"
+    effects:
+        eff1:
+            position: special
+            effect: effectlibentity
+            effectlib:
+                class: EquationEffect
+                particle: flame
+                particles: 60
+                duration: 160
+                cycle: true
+                xEquation: 0
+                yEquation: "1.2 * sin(20 * 2 * 3.14 * t)"
+                zEquation: "1.2 * cos(20 * 2 * 3.14 * t)"
 flamesurge-hit-aoe:
     spell-class: ".targeted.AreaEffectSpell"
     name: flamesurge-hit-aoe
