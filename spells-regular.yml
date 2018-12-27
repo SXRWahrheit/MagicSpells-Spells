@@ -827,7 +827,7 @@ iceblockinvuln:
         - suffocation
         - void
         - wither
-    duration: 200
+    duration: 10
     str-fade: Your ice block wears off.
 iceblockself:
     spell-class: ".targeted.EntombSpell"

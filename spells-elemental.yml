@@ -574,12 +574,6 @@ rootsurge-center-wave1:
     stop-on-hit-ground: false
     spell: rootsurge-throwblock1
     spell-interval: 1
-    cooldown: 20
-    cost:
-        - redstone 10
-    str-cost: "10 redstone"
-    str-cast-self: You send a wave of roots!
-    str-cast-others: "%a sends a wave of roots!"
 rootsurge-center-wave2:
     spell-class: ".instant.ParticleProjectileSpell"
     name: rootsurge-wave2
@@ -674,12 +668,6 @@ rootsurge-pos10-wave1:
     stop-on-hit-ground: false
     spell: rootsurge-throwblock1
     spell-interval: 1
-    cooldown: 20
-    cost:
-        - redstone 10
-    str-cost: "10 redstone"
-    str-cast-self: You send a wave of roots!
-    str-cast-others: "%a sends a wave of roots!"
 rootsurge-pos10-wave2:
     spell-class: ".instant.ParticleProjectileSpell"
     name: rootsurge-pos10-wave2
@@ -739,12 +727,6 @@ rootsurge-pos20-wave1:
     stop-on-hit-ground: false
     spell: rootsurge-throwblock1
     spell-interval: 1
-    cooldown: 20
-    cost:
-        - redstone 10
-    str-cost: "10 redstone"
-    str-cast-self: You send a wave of roots!
-    str-cast-others: "%a sends a wave of roots!"
 rootsurge-pos20-wave2:
     spell-class: ".instant.ParticleProjectileSpell"
     name: rootsurge-pos20-wave2
@@ -804,12 +786,6 @@ rootsurge-pos30-wave1:
     stop-on-hit-ground: false
     spell: rootsurge-throwblock1
     spell-interval: 1
-    cooldown: 20
-    cost:
-        - redstone 10
-    str-cost: "10 redstone"
-    str-cast-self: You send a wave of roots!
-    str-cast-others: "%a sends a wave of roots!"
 rootsurge-pos30-wave2:
     spell-class: ".instant.ParticleProjectileSpell"
     name: rootsurge-pos30-wave2
@@ -869,12 +845,6 @@ rootsurge-neg10-wave1:
     stop-on-hit-ground: false
     spell: rootsurge-throwblock1
     spell-interval: 1
-    cooldown: 20
-    cost:
-        - redstone 10
-    str-cost: "10 redstone"
-    str-cast-self: You send a wave of roots!
-    str-cast-others: "%a sends a wave of roots!"
 rootsurge-neg10-wave2:
     spell-class: ".instant.ParticleProjectileSpell"
     name: rootsurge-neg10-wave2
@@ -934,12 +904,6 @@ rootsurge-neg20-wave1:
     stop-on-hit-ground: false
     spell: rootsurge-throwblock1
     spell-interval: 1
-    cooldown: 20
-    cost:
-        - redstone 10
-    str-cost: "10 redstone"
-    str-cast-self: You send a wave of roots!
-    str-cast-others: "%a sends a wave of roots!"
 rootsurge-neg20-wave2:
     spell-class: ".instant.ParticleProjectileSpell"
     name: rootsurge-neg20-wave2
@@ -999,12 +963,6 @@ rootsurge-neg30-wave1:
     stop-on-hit-ground: false
     spell: rootsurge-throwblock1
     spell-interval: 1
-    cooldown: 20
-    cost:
-        - redstone 10
-    str-cost: "10 redstone"
-    str-cast-self: You send a wave of roots!
-    str-cast-others: "%a sends a wave of roots!"
 rootsurge-neg30-wave2:
     spell-class: ".instant.ParticleProjectileSpell"
     name: rootsurge-neg30-wave2
