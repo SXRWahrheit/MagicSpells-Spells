@@ -18,6 +18,17 @@ gust:
     str-no-target: You can't cast gust right now.
     str-cast-self: You summon a gust of wind!
     str-cast-others: "%a summons a gust of wind!"
+    effects:
+        eff1:
+            position: special
+            effect: particles
+            particle-name: cloud
+            height-offset: -0.2
+            count: 50
+            horiz-spread: 1
+            vert-spread: 0.5
+            render-distance: 256
+            duration: 800
 gust-beam:
     spell-class: ".targeted.ForcetossSpell"
     name: gust-beam
@@ -39,6 +50,17 @@ gustleap:
     str-cost: "10 redstone"
     str-cast-self: You whip up the air around you to leap forward!
     str-cast-others: "%a whips up the air around them to leap forward!"
+    effects:
+        eff1:
+            position: caster
+            effect: particles
+            particle-name: cloud
+            height-offset: -0.2
+            count: 40
+            horiz-spread: 0.2
+            vert-spread: 0.2
+            render-distance: 256
+            duration: 800
 gustlaunch:
     spell-class: ".instant.LeapSpell"
     name: gustlaunch
@@ -53,6 +75,37 @@ gustlaunch:
     str-cost: "10 redstone"
     str-cast-self: You whip up the air around you to launch yourself into the sky!
     str-cast-others: "%a whips up the air around them to launch themselves into the sky!"
+    effects:
+        eff1:
+            position: caster
+            effect: particles
+            particle-name: cloud
+            height-offset: -0.2
+            count: 10
+            horiz-spread: 0.2
+            vert-spread: 0.2
+            render-distance: 256
+            duration: 800
+        eff2:
+            position: caster
+            effect: particles
+            count: 100
+            horiz-spread: 0.1
+            vert-spread: 0.1
+            render-distance: 256
+            duration: 800
+        eff3:
+            position: caster
+            effect: effectlibentity
+            effectlib:
+                class: EquationEffect
+                particle: cloud
+                particles: 20
+                duration: 80
+                cycle: true
+                xEquation: "0"
+                yEquation: "0.5t"
+                zEquation: "0"
 flamebolt:
     spell-class: ".instant.ParticleProjectileSpell"
     name: flamebolt
@@ -95,6 +148,7 @@ flamebolt-hit:
     check-plugins: true
 flamesurge:
     spell-class: ".instant.ParticleProjectileSpell"
+    name: flamesurge
     projectile-velocity: 10
     tick-interval: 1
     projectile-gravity: 0
@@ -131,10 +185,10 @@ flamesurge:
             effectlib:
                 class: EquationEffect
                 particle: flame
-                particles: 60
-                duration: 160
+                particles: 80
+                duration: 80
                 cycle: true
-                xEquation: 0
+                xEquation: "0"
                 yEquation: "1.2 * sin(20 * 2 * 3.14 * t)"
                 zEquation: "1.2 * cos(20 * 2 * 3.14 * t)"
 flamesurge-hit-aoe:
@@ -213,29 +267,155 @@ searingflames-ignite:
     check-plugins: true
     target-modifiers:
         - onfire false required
+rootsurge:
+    spell-class: ".targeted.AreaEffectSpell"
+    name: rootsurge
+    description: Root and bind enemies in a large cone in front of you.
+    cooldown: 60
+    cost:
+        - redstone 30
+    str-cost: "30 redstone"
+    str-cast-self: "You send out a rootsurge to bind your enemies!"
+    str-cast-others: "%a sends out a rootsurge to bind their enemies!"
+    effects:
+        Roots:
+            position: special
+            effect: Particles
+            horiz-spread: 0.1
+            vert-spread: 0.1
+            particle-name: blockcrack_17_0
+            count: 20
+            speed: 0
+
+enchantarrows-nature:
+    spell-class: ".ExternalCommandSpell"
+    name: enchantarrows-nature
+    description: Enchant your arrows with nature magic, briefly rooting your target on-hit.
+    cooldown: 300
+    can-cast-with-item: true
+    can-cast-by-command: true
+    command-to-execute: "ex run enchantarrows-nature def:<server.match_player[%a]>"
+    cost:
+        - redstone 20
+    str-cost: "20 redstone"
+    str-cast-self: "You enchant your arrows with nature magic."
 rootbind:
-    spell-class: ".instant.BeamSpell"
+    spell-class: ".MultiSpell"
     name: rootbind
     description: Root and damage enemies in a line in front of you.
     cooldown: 10
-    spell: rootbind-multi
-    hit-radius: 3
-    vertical-hit-radius: 8
-    y-offset: 0
-    rotation: 0
-    beam-horiz-offset: -1.0
-    beam-vert-offset: -0.5
-    max-distance: 20
-    interval: 2
     cost: 
         - redstone 10
     str-cost: 10 redstone
     str-no-target: You can't cast rootbind right now.
     str-cast-self: You send out roots to bind your enemies!
     str-cast-others: "%a sends out roots to bind their enemies!"
+    spells:
+        - rootbind-wave1
+        - rootbind-wave2(delay=5)
+rootbind-wave1:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootbind-wave1
+    projectile-velocity: 8
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 0.5
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: false
+    hit-non-players: false
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootbind-throwblock1
+    spell-interval: 1
+    cooldown: 20
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You send a wave of roots!
+    str-cast-others: "%a sends a wave of roots!"
+rootbind-wave2:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootbind-wave2
+    projectile-velocity: 8
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 1.0
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootbind-throwblock2
+    spell-on-hit-entity: rootbind-multi
+    spell-interval: 1
+rootbind-throwblock1:
+    spell-class: ".instant.ThrowBlockSpell"
+    name: rootbind-throwblock1
+    block-type: log
+    velocity: 0.0
+    vertical-adjustment: 0.5
+    y-offset: -0.5
+    rotation-offset: 0
+    fall-damage: 0
+    fall-damage-max: 0
+    drop-item: false
+    remove-blocks: true
+    prevent-blocks: true
+    call-target-event: false
+    check-plugins: false
+    ensure-spell-cast: true
+    sticky-blocks: false 
+    gravity: true
+rootbind-throwblock2:
+    spell-class: ".instant.ThrowBlockSpell"
+    name: rootbind-throwblock2
+    block-type: log
+    velocity: 0.2
+    vertical-adjustment: 0.5
+    y-offset: -0.3
+    rotation-offset: 0
+    fall-damage: 0
+    fall-damage-max: 0
+    drop-item: false
+    remove-blocks: true
+    prevent-blocks: true
+    call-target-event: false
+    check-plugins: false
+    ensure-spell-cast: true
+    sticky-blocks: false
+    gravity: true
 rootbind-multi:
-    spell-class: ".MultiSpell"
+    spell-class: ".TargetedMultiSpell"
     name: rootbind-multi
+    require-entity-target: true
     spells:
         - rootbind-pain
         - rootbind-slow(delay=20)
@@ -265,36 +445,528 @@ rootbind-pain:
     damage: 4
     obey-los: false
     target-players: true
-rootsurge:
-    spell-class: ".targeted.AreaEffectSpell"
-    name: rootsurge
-    description: Root and bind enemies in a large cone in front of you.
-    horizontal-radius: 8
-    vertical-radius: 2
-    point-blank: true
-    cone: 60
-    fail-if-no-targets: false
-    max-targets: 0
-    spell-source-in-center: true
+rootsurge-multi:
+    spell-class: ".TargetedMultiSpell"
+    name: rootsurge-multi
+    require-entity-target: true
     spells:
         - rootsurge-pain
         - rootsurge-slow(delay=20)
         - rootsurge-jump(delay=20)
+rootsurge:
+    spell-class: ".MultiSpell"
+    name: rootsurge
+    description: Root and bind enemies in a large cone in front of you.
     cooldown: 60
     cost:
         - redstone 30
     str-cost: "30 redstone"
     str-cast-self: "You send out a rootsurge to bind your enemies!"
     str-cast-others: "%a sends out a rootsurge to bind their enemies!"
-    effects:
-        Roots:
-            position: special
-            effect: Particles
-            horiz-spread: 0.1
-            vert-spread: 0.1
-            particle-name: blockcrack_17_0
-            count: 20
-            speed: 0
+    spells:
+        - rootsurge-center-wave1
+        - rootsurge-center-wave2(delay=5)
+        - rootsurge-pos10-wave1
+        - rootsurge-pos10-wave2(delay=5)
+        - rootsurge-pos20-wave1
+        - rootsurge-pos20-wave2(delay=5)
+        - rootsurge-pos30-wave1
+        - rootsurge-pos30-wave2(delay=5)
+        - rootsurge-neg10-wave1
+        - rootsurge-neg10-wave2(delay=5)
+        - rootsurge-neg20-wave1
+        - rootsurge-neg20-wave2(delay=5)
+        - rootsurge-neg30-wave1
+        - rootsurge-neg30-wave2(delay=5)
+rootsurge-center-wave1:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-center-wave1
+    projectile-velocity: 8
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 0.5
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: false
+    hit-non-players: false
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock1
+    spell-interval: 1
+    cooldown: 20
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You send a wave of roots!
+    str-cast-others: "%a sends a wave of roots!"
+rootsurge-center-wave2:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-wave2
+    projectile-velocity: 8
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 1.0
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock2
+    spell-on-hit-entity: rootsurge-multi
+    spell-interval: 1
+rootsurge-throwblock1:
+    spell-class: ".instant.ThrowBlockSpell"
+    name: rootsurge-throwblock1
+    block-type: log
+    velocity: 0.0
+    vertical-adjustment: 0.5
+    y-offset: -0.5
+    rotation-offset: 0
+    fall-damage: 0
+    fall-damage-max: 0
+    drop-item: false
+    remove-blocks: true
+    prevent-blocks: true
+    call-target-event: false
+    check-plugins: false
+    ensure-spell-cast: true
+    sticky-blocks: false 
+    gravity: true
+rootsurge-throwblock2:
+    spell-class: ".instant.ThrowBlockSpell"
+    name: rootsurge-throwblock2
+    block-type: log
+    velocity: 0.2
+    vertical-adjustment: 0.5
+    y-offset: -0.3
+    rotation-offset: 0
+    fall-damage: 0
+    fall-damage-max: 0
+    drop-item: false
+    remove-blocks: true
+    prevent-blocks: true
+    call-target-event: false
+    check-plugins: false
+    ensure-spell-cast: true
+    sticky-blocks: false
+    gravity: true
+rootsurge-pos10-wave1:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-pos10-wave1
+    projectile-velocity: 8
+    projectile-horiz-offset: 10
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 0.5
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: false
+    hit-non-players: false
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock1
+    spell-interval: 1
+    cooldown: 20
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You send a wave of roots!
+    str-cast-others: "%a sends a wave of roots!"
+rootsurge-pos10-wave2:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-pos10-wave2
+    projectile-velocity: 8
+    projectile-horiz-offset: 10
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 1.0
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock2
+    spell-on-hit-entity: rootsurge-multi
+    spell-interval: 1
+rootsurge-pos20-wave1:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-pos20-wave1
+    projectile-velocity: 8
+    projectile-horiz-offset: 20
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 0.5
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: false
+    hit-non-players: false
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock1
+    spell-interval: 1
+    cooldown: 20
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You send a wave of roots!
+    str-cast-others: "%a sends a wave of roots!"
+rootsurge-pos20-wave2:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-pos20-wave2
+    projectile-velocity: 8
+    projectile-horiz-offset: 20
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 1.0
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock2
+    spell-on-hit-entity: rootsurge-multi
+    spell-interval: 1
+rootsurge-pos30-wave1:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-pos30-wave1
+    projectile-velocity: 8
+    projectile-horiz-offset: 30
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 0.5
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: false
+    hit-non-players: false
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock1
+    spell-interval: 1
+    cooldown: 20
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You send a wave of roots!
+    str-cast-others: "%a sends a wave of roots!"
+rootsurge-pos30-wave2:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-pos30-wave2
+    projectile-velocity: 8
+    projectile-horiz-offset: 30
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 1.0
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock2
+    spell-on-hit-entity: rootsurge-multi
+    spell-interval: 1
+rootsurge-neg10-wave1:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-neg10-wave1
+    projectile-velocity: 8
+    projectile-horiz-offset: -10
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 0.5
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: false
+    hit-non-players: false
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock1
+    spell-interval: 1
+    cooldown: 20
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You send a wave of roots!
+    str-cast-others: "%a sends a wave of roots!"
+rootsurge-neg10-wave2:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-neg10-wave2
+    projectile-velocity: 8
+    projectile-horiz-offset: -10
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 1.0
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock2
+    spell-on-hit-entity: rootsurge-multi
+    spell-interval: 1
+rootsurge-neg20-wave1:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-neg20-wave1
+    projectile-velocity: 8
+    projectile-horiz-offset: -20
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 0.5
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: false
+    hit-non-players: false
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock1
+    spell-interval: 1
+    cooldown: 20
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You send a wave of roots!
+    str-cast-others: "%a sends a wave of roots!"
+rootsurge-neg20-wave2:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-neg20-wave2
+    projectile-velocity: 8
+    projectile-horiz-offset: -20
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 1.0
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock2
+    spell-on-hit-entity: rootsurge-multi
+    spell-interval: 1
+rootsurge-neg30-wave1:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-neg30-wave1
+    projectile-velocity: 8
+    projectile-horiz-offset: -30
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 0.5
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: false
+    hit-non-players: false
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock1
+    spell-interval: 1
+    cooldown: 20
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You send a wave of roots!
+    str-cast-others: "%a sends a wave of roots!"
+rootsurge-neg30-wave2:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: rootsurge-neg30-wave2
+    projectile-velocity: 8
+    projectile-horiz-offset: -30
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: blockcrack
+    particle-speed: 0.01
+    particle-count: 40
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    special-effect-interval: 1
+    max-distance: 10
+    max-duration: 80
+    hit-radius: 1.0
+    hug-surface: true
+    vertical-hit-radius: 1.0
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: true
+    hit-air-during: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell: rootsurge-throwblock2
+    spell-on-hit-entity: rootsurge-multi
+    spell-interval: 1
 rootsurge-slow:
     spell-class: ".targeted.PotionEffectSpell"
     name: rootsurge-slow
@@ -320,15 +992,3 @@ rootsurge-pain:
     damage: 4
     obey-los: false
     target-players: true
-enchantarrows-nature:
-    spell-class: ".ExternalCommandSpell"
-    name: enchantarrows-nature
-    description: Enchant your arrows with nature magic, briefly rooting your target on-hit.
-    cooldown: 300
-    can-cast-with-item: true
-    can-cast-by-command: true
-    command-to-execute: "ex run enchantarrows-nature def:<server.match_player[%a]>"
-    cost:
-        - redstone 20
-    str-cost: "20 redstone"
-    str-cast-self: "You enchant your arrows with nature magic."
