@@ -521,14 +521,6 @@ rootbind-pain:
     damage: 4
     obey-los: false
     target-players: true
-rootsurge-multi:
-    spell-class: ".TargetedMultiSpell"
-    name: rootsurge-multi
-    require-entity-target: true
-    spells:
-        - rootsurge-pain
-        - rootsurge-slow(delay=20)
-        - rootsurge-jump(delay=20)
 rootsurge:
     spell-class: ".MultiSpell"
     name: rootsurge
@@ -1043,6 +1035,14 @@ rootsurge-neg30-wave2:
     spell: rootsurge-throwblock2
     spell-on-hit-entity: rootsurge-multi
     spell-interval: 1
+rootsurge-multi:
+    spell-class: ".TargetedMultiSpell"
+    name: rootsurge-multi
+    require-entity-target: true
+    spells:
+        - rootsurge-pain
+        - rootsurge-slow(delay=20)
+        - rootsurge-jump(delay=20)
 rootsurge-slow:
     spell-class: ".targeted.PotionEffectSpell"
     name: rootsurge-slow
