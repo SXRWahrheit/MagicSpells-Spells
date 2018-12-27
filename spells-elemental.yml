@@ -236,8 +236,8 @@ searingflames:
     cost:
         - redstone 30
     str-cost: "30 redstone"
-    str-cast-self: "You unleash searing flames, consuming the fires afflicting burning foes and igniting all others!"
-    str-cast-others: "%a unleashes searing flames, consuming the fires afflicting burning foes and igniting all others!"
+    str-cast-self: "You unleash searing flames!"
+    str-cast-others: "%a unleashes searing flames!"
     target-modifiers:
         - onfire true required
 searingflames-pain:
@@ -247,15 +247,6 @@ searingflames-pain:
     damage: 10
     obey-los: false
     target-players: true
-    target-modifiers:
-        - onfire true required
-searingflames-exhaust:
-    spell-class: ".targeted.CleanseSpell"
-    name: searingflames-exhaust
-    target-self: false
-    remove:
-    - fire
-    beneficial: false
     target-modifiers:
         - onfire true required
 searingflames-ignite:
