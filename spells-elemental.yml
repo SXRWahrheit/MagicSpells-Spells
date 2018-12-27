@@ -238,8 +238,6 @@ searingflames:
     str-cost: "30 redstone"
     str-cast-self: "You unleash searing flames!"
     str-cast-others: "%a unleashes searing flames!"
-    target-modifiers:
-        - onfire true required
 searingflames-pain:
     spell-class: ".targeted.PainSpell"
     name: searingflames-pain
@@ -258,6 +256,113 @@ searingflames-ignite:
     check-plugins: true
     target-modifiers:
         - onfire false required
+firestorm:
+    spell-class: ".targeted.AreaEffectSpell"
+    name: firestorm
+    cooldown: 60
+    cost:
+        - redstone 64
+    str-cost: "64 redstone"
+    str-cast-self: You conjure a storm of fire!
+    str-cast-others: "%a conjures a storm of fire!"
+    horizontal-radius: 16
+    vertical-radius: 8
+    point-blank: true
+    cone: 0
+    fail-if-no-targets: false
+    max-targets: 0
+    spell-source-in-center: true
+    spells:
+        - firestorm-pain
+        - firestorm-ignite
+        - firestorm-pain(delay=20)
+        - firestorm-ignite(delay=20)
+        - firestorm-pain(delay=40)
+        - firestorm-ignite(delay=40)
+        - firestorm-pain(delay=60)
+        - firestorm-ignite(delay=60)
+        - firestorm-pain(delay=80)
+        - firestorm-ignite(delay=80)
+        - firestorm-pain(delay=100)
+        - firestorm-ignite(delay=100)
+        - firestorm-pain(delay=120)
+        - firestorm-ignite(delay=120)
+        - firestorm-pain(delay=140)
+        - firestorm-ignite(delay=140)
+firestorm-pain:
+    spell-class: ".targeted.PainSpell"
+    name: firestorm-pain
+    ignore-armor: false
+    damage: 6
+    obey-los: false
+    target-players: true
+firestorm-ignite:
+    spell-class: ".targeted.CombustSpell"
+    name: firestorm-ignite
+    fire-ticks: 100
+    fire-tick-damage: 2
+    prevent-immunity: true
+    check-plugins: true
+burningspeed:
+    spell-class: ".TargetedMultiSpell"
+    name: burningspeed
+    cooldown: 30
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You imbue yourself with burning speed!"
+    str-cast-others: "%a imbues themselves with burning speed!"
+    spells:
+        - burningspeed-ignite-self
+        - burningspeed-haste
+        - burningspeed-ignite-enemies-aoe(delay=200)
+burningspeed-ignite-self:
+    spell-class: ".targeted.CombustSpell"
+    name: burningspeed-ignite-self
+    fire-ticks: 200
+    fire-tick-damage: 2
+    prevent-immunity: true
+    check-plugins: true
+    target-self: true
+burningspeed-haste:
+    spell-class: ".targeted.PotionEffectSpell"
+    name: burningspeed-haste
+    type: speed
+    duration: 200
+    strength: -7
+    ambient: false
+    hidden: false
+    targeted: true
+    target-self: true
+burningspeed-ignite-enemies-aoe:
+    spell-class: ".targeted.AreaEffectSpell"
+    name: burningspeed-ignite-enemies-aoe
+    horizontal-radius: 4
+    vertical-radius: 2
+    point-blank: true
+    cone: 0
+    fail-if-no-targets: false
+    max-targets: 0
+    spell-source-in-center: true
+    spells:
+        - burningspeed-ignite-enemies
+    effects:
+        eff1:
+            position: caster
+            effect: particles
+            particle-name: flame
+            height-offset: -0.2
+            count: 80
+            horiz-spread: 0.2
+            vert-spread: 0.2
+            render-distance: 256
+            duration: 80
+burningspeed-ignite-enemies:
+    spell-class: ".targeted.CombustSpell"
+    fire-ticks: 200
+    fire-tick-damage: 2
+    prevent-immunity: true
+    check-plugins: true
 enchantarrows-nature:
     spell-class: ".ExternalCommandSpell"
     name: enchantarrows-nature
@@ -395,7 +500,7 @@ rootbind-slow:
     spell-class: ".targeted.PotionEffectSpell"
     name: rootbind-slow
     type: slow
-    duration: 6
+    duration: 100
     strength: 7
     ambient: false
     hidden: false
@@ -404,7 +509,7 @@ rootbind-jump:
     spell-class: ".targeted.PotionEffectSpell"
     name: rootbind-jump
     type: jump
-    duration: 6
+    duration: 100
     strength: -7
     ambient: false
     hidden: false
@@ -942,7 +1047,7 @@ rootsurge-slow:
     spell-class: ".targeted.PotionEffectSpell"
     name: rootsurge-slow
     type: slow
-    duration: 120
+    duration: 140
     strength: 7
     ambient: false
     hidden: false
@@ -951,7 +1056,7 @@ rootsurge-jump:
     spell-class: ".targeted.PotionEffectSpell"
     name: rootsurge-jump
     type: jump
-    duration: 120
+    duration: 140
     strength: -7
     ambient: false
     hidden: false
@@ -960,6 +1065,6 @@ rootsurge-pain:
     spell-class: ".targeted.PainSpell"
     name: rootsurge-pain
     ignore-armor: false
-    damage: 4
+    damage: 7
     obey-los: false
     target-players: true
