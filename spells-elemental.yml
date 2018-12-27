@@ -267,26 +267,6 @@ searingflames-ignite:
     check-plugins: true
     target-modifiers:
         - onfire false required
-rootsurge:
-    spell-class: ".targeted.AreaEffectSpell"
-    name: rootsurge
-    description: Root and bind enemies in a large cone in front of you.
-    cooldown: 60
-    cost:
-        - redstone 30
-    str-cost: "30 redstone"
-    str-cast-self: "You send out a rootsurge to bind your enemies!"
-    str-cast-others: "%a sends out a rootsurge to bind their enemies!"
-    effects:
-        Roots:
-            position: special
-            effect: Particles
-            horiz-spread: 0.1
-            vert-spread: 0.1
-            particle-name: blockcrack_17_0
-            count: 20
-            speed: 0
-
 enchantarrows-nature:
     spell-class: ".ExternalCommandSpell"
     name: enchantarrows-nature
