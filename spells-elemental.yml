@@ -230,7 +230,6 @@ searingflames:
     spell-source-in-center: true
     spells:
         - searingflames-pain
-        - searingflames-exhaust
         - searingflames-ignite
     cooldown: 60
     cost:
@@ -304,18 +303,30 @@ firestorm-ignite:
     prevent-immunity: true
     check-plugins: true
 burningspeed:
-    spell-class: ".TargetedMultiSpell"
+    spell-class: ".MultiSpell"
     name: burningspeed
     cooldown: 30
     cost:
         - redstone 10
     str-cost: "10 redstone"
-    str-cast-self: You imbue yourself with burning speed!"
+    str-cast-self: You imbue yourself with burning speed!
     str-cast-others: "%a imbues themselves with burning speed!"
+    target-self: true
     spells:
         - burningspeed-ignite-self
         - burningspeed-haste
         - burningspeed-ignite-enemies-aoe(delay=200)
+    effects:
+        eff1:
+            position: caster
+            effect: particles
+            particle-name: flame
+            height-offset: -0.2
+            count: 30
+            horiz-spread: 0.2
+            vert-spread: 0.2
+            render-distance: 256
+            duration: 800
 burningspeed-ignite-self:
     spell-class: ".targeted.CombustSpell"
     name: burningspeed-ignite-self
@@ -329,7 +340,7 @@ burningspeed-haste:
     name: burningspeed-haste
     type: speed
     duration: 200
-    strength: -7
+    strength: 3
     ambient: false
     hidden: false
     targeted: true
@@ -352,11 +363,27 @@ burningspeed-ignite-enemies-aoe:
             effect: particles
             particle-name: flame
             height-offset: -0.2
-            count: 80
+            count: 200
             horiz-spread: 0.2
             vert-spread: 0.2
             render-distance: 256
             duration: 80
+        eff2:
+            position: caster
+            effect: effectlibentity
+            effectlib:
+                class: CircleEffect
+                particle: flame
+                radius: 4
+                wholeCircle: true
+                enableRotation: false
+                speed: 1
+                iterations: 1
+                particles: 100
+                xRotation: 0
+                yRotation: 0
+                zRotation: 0
+                relativeOffset: 0,1.5,0
 burningspeed-ignite-enemies:
     spell-class: ".targeted.CombustSpell"
     fire-ticks: 200
