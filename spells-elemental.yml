@@ -155,10 +155,10 @@ flamesurge:
     projectile-spread: 0
     particle-name: flame
     particle-speed: 0.01
-    particle-count: 40
+    particle-count: 5
     particle-horizontal-spread: 0.2
     particle-vertical-spread: 0.2
-    special-effect-interval: 1
+    special-effect-interval: 1000
     max-distance: 20
     max-duration: 80
     hit-radius: 1.25
@@ -185,12 +185,24 @@ flamesurge:
             effectlib:
                 class: EquationEffect
                 particle: flame
-                particles: 80
-                duration: 80
+                particles: 2
+                duration: 1666
                 cycle: true
-                xEquation: "0"
-                yEquation: "1.2 * sin(20 * 2 * 3.14 * t)"
-                zEquation: "1.2 * cos(20 * 2 * 3.14 * t)"
+                xEquation: "0.3 * t"
+                yEquation: "1.2 * sin(30 * 2 * 3.14 * t)"
+                zEquation: "1.2 * cos(30 * 2 * 3.14 * t)"
+        eff2:
+            position: special
+            effect: effectlibentity
+            effectlib:
+                class: EquationEffect
+                particle: flame
+                particles: 2
+                duration: 1666
+                cycle: true
+                xEquation: "0.3 * t"
+                yEquation: "1.2 * sin(30 * 2 * 3.14 * t + 3.14)"
+                zEquation: "1.2 * cos(30 * 2 * 3.14 * t + 3.14)"
 flamesurge-hit-aoe:
     spell-class: ".targeted.AreaEffectSpell"
     name: flamesurge-hit-aoe
