@@ -115,7 +115,7 @@ flamebolt:
     projectile-spread: 0
     particle-name: flame
     particle-speed: 0.01
-    particle-count: 20
+    particle-count: 15
     particle-horizontal-spread: 0.2
     particle-vertical-spread: 0.2
     max-distance: 10
@@ -155,7 +155,7 @@ flamesurge:
     projectile-spread: 0
     particle-name: flame
     particle-speed: 0.01
-    particle-count: 5
+    particle-count: 30
     particle-horizontal-spread: 0.2
     particle-vertical-spread: 0.2
     special-effect-interval: 1000
