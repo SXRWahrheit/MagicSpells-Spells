@@ -428,7 +428,7 @@ rootbind:
     spells:
         - rootbind-wave1
         - rootbind-wave2(delay=5)
-rootbind-wave1:
+rootbind-wave1: &rootbind-wave1-anchor
     spell-class: ".instant.ParticleProjectileSpell"
     name: rootbind-wave1
     projectile-velocity: 8
@@ -462,7 +462,7 @@ rootbind-wave1:
     str-cost: "10 redstone"
     str-cast-self: You send a wave of roots!
     str-cast-others: "%a sends a wave of roots!"
-rootbind-wave2:
+rootbind-wave2: &rootbind-wave2-anchor
     spell-class: ".instant.ParticleProjectileSpell"
     name: rootbind-wave2
     projectile-velocity: 8
@@ -491,7 +491,7 @@ rootbind-wave2:
     spell: rootbind-throwblock2
     spell-on-hit-entity: rootbind-multi
     spell-interval: 1
-rootbind-throwblock1:
+rootbind-throwblock1: &rootbind-throwblock1-anchor
     spell-class: ".instant.ThrowBlockSpell"
     name: rootbind-throwblock1
     block-type: log
@@ -509,7 +509,7 @@ rootbind-throwblock1:
     ensure-spell-cast: true
     sticky-blocks: false 
     gravity: true
-rootbind-throwblock2:
+rootbind-throwblock2: &rootbind-throwblock2-anchor
     spell-class: ".instant.ThrowBlockSpell"
     name: rootbind-throwblock2
     block-type: log
@@ -585,9 +585,9 @@ rootsurge:
         - rootsurge-neg20-wave2(delay=5)
         - rootsurge-neg30-wave1
         - rootsurge-neg30-wave2(delay=5)
-rootsurge-center-wave1:
+rootsurge-wave1-anchor: &rootsurge-wave1-anchor
     spell-class: ".instant.ParticleProjectileSpell"
-    name: rootsurge-center-wave1
+    name: rootsurge-wave1
     projectile-velocity: 8
     tick-interval: 1
     projectile-gravity: 0
@@ -613,7 +613,7 @@ rootsurge-center-wave1:
     stop-on-hit-ground: false
     spell: rootsurge-throwblock1
     spell-interval: 1
-rootsurge-center-wave2:
+rootsurge-wave2-anchor: &rootsurge-wave2-anchor
     spell-class: ".instant.ParticleProjectileSpell"
     name: rootsurge-wave2
     projectile-velocity: 8
@@ -678,360 +678,60 @@ rootsurge-throwblock2:
     ensure-spell-cast: true
     sticky-blocks: false
     gravity: true
+rootsurge-center-wave1:
+    <<: *rootsurge-wave1-anchor
+    name: rootsurge-center-wave1
+rootsurge-center-wave2:
+    <<: *rootsurge-wave2-anchor
+    name: rootsurge-center-wave2
 rootsurge-pos10-wave1:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave1-anchor
     name: rootsurge-pos10-wave1
-    projectile-velocity: 8
     projectile-horiz-offset: 10
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 0.5
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: false
-    hit-non-players: false
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock1
-    spell-interval: 1
 rootsurge-pos10-wave2:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave2-anchor
     name: rootsurge-pos10-wave2
-    projectile-velocity: 8
     projectile-horiz-offset: 10
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 1.0
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: true
-    hit-non-players: true
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock2
-    spell-on-hit-entity: rootsurge-multi
-    spell-interval: 1
 rootsurge-pos20-wave1:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave1-anchor
     name: rootsurge-pos20-wave1
-    projectile-velocity: 8
     projectile-horiz-offset: 20
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 0.5
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: false
-    hit-non-players: false
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock1
-    spell-interval: 1
 rootsurge-pos20-wave2:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave2-anchor
     name: rootsurge-pos20-wave2
-    projectile-velocity: 8
     projectile-horiz-offset: 20
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 1.0
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: true
-    hit-non-players: true
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock2
-    spell-on-hit-entity: rootsurge-multi
-    spell-interval: 1
 rootsurge-pos30-wave1:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave1-anchor
     name: rootsurge-pos30-wave1
-    projectile-velocity: 8
     projectile-horiz-offset: 30
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 0.5
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: false
-    hit-non-players: false
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock1
-    spell-interval: 1
 rootsurge-pos30-wave2:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave2-anchor
     name: rootsurge-pos30-wave2
-    projectile-velocity: 8
     projectile-horiz-offset: 30
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 1.0
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: true
-    hit-non-players: true
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock2
-    spell-on-hit-entity: rootsurge-multi
-    spell-interval: 1
 rootsurge-neg10-wave1:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave1-anchor
     name: rootsurge-neg10-wave1
-    projectile-velocity: 8
     projectile-horiz-offset: -10
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 0.5
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: false
-    hit-non-players: false
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock1
-    spell-interval: 1
 rootsurge-neg10-wave2:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave2-anchor
     name: rootsurge-neg10-wave2
-    projectile-velocity: 8
     projectile-horiz-offset: -10
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 1.0
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: true
-    hit-non-players: true
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock2
-    spell-on-hit-entity: rootsurge-multi
-    spell-interval: 1
 rootsurge-neg20-wave1:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave1-anchor
     name: rootsurge-neg20-wave1
-    projectile-velocity: 8
     projectile-horiz-offset: -20
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 0.5
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: false
-    hit-non-players: false
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock1
-    spell-interval: 1
 rootsurge-neg20-wave2:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave2-anchor
     name: rootsurge-neg20-wave2
-    projectile-velocity: 8
     projectile-horiz-offset: -20
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 1.0
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: true
-    hit-non-players: true
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock2
-    spell-on-hit-entity: rootsurge-multi
-    spell-interval: 1
 rootsurge-neg30-wave1:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave1-anchor
     name: rootsurge-neg30-wave1
-    projectile-velocity: 8
     projectile-horiz-offset: -30
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 0.5
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: false
-    hit-non-players: false
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock1
-    spell-interval: 1
 rootsurge-neg30-wave2:
-    spell-class: ".instant.ParticleProjectileSpell"
+    <<: *rootsurge-wave2-anchor
     name: rootsurge-neg30-wave2
-    projectile-velocity: 8
     projectile-horiz-offset: -30
-    tick-interval: 1
-    projectile-gravity: 0
-    projectile-spread: 0
-    particle-name: blockcrack
-    particle-speed: 0.01
-    particle-count: 40
-    particle-horizontal-spread: 0.2
-    particle-vertical-spread: 0.2
-    special-effect-interval: 1
-    max-distance: 10
-    max-duration: 80
-    hit-radius: 1.0
-    hug-surface: true
-    vertical-hit-radius: 1.0
-    render-distance: 100
-    hit-players: true
-    hit-non-players: true
-    hit-ground: true
-    hit-air-at-end: true
-    hit-air-during: true
-    stop-on-hit-entity: false
-    stop-on-hit-ground: false
-    spell: rootsurge-throwblock2
-    spell-on-hit-entity: rootsurge-multi
-    spell-interval: 1
 rootsurge-multi:
     spell-class: ".TargetedMultiSpell"
     name: rootsurge-multi
