@@ -330,13 +330,12 @@ escape:
     name: escape
     spell-icon: portal
     cast-time: 0
-    cooldown: 86400
+    cooldown: 300
     str-gate-failed: Your spell fizzles.
     str-cast-done: You manipulate spacial magic and escape!
     str-cast-interrupted: Your cast was interrupted.
     description: Manipulate spacial magic and escape to spawn.
     str-cost: 256 redstone
-    can-cast-with-item: false
     world: prosperus
     coordinates: SPAWN
     effects:
