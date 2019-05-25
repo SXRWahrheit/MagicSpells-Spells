@@ -1,3 +1,5 @@
+# Wind spells
+
 gust:
     spell-class: ".instant.BeamSpell"
     name: gust
@@ -106,6 +108,62 @@ gustlaunch:
                 xEquation: "0"
                 yEquation: "0.5t"
                 zEquation: "0"
+windbolt:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: windbolt
+    projectile-velocity: 10
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: cloud
+    particle-speed: 0.01
+    particle-count: 15
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    max-distance: 10
+    max-duration: 40
+    hit-radius: 0.75
+    vertical-hit-radius: 0.75
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: false
+    hit-air-during: false
+    stop-on-hit-entity: true
+    stop-on-hit-ground: true
+    spell: windbolt-hit
+    spell-on-hit-entity: windbolt-hit
+    cooldown: 10
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You hurl a windbolt!
+    str-cast-others: "%a hurls a windbolt!"
+windbolt-hit:
+    spell-class: ".TargetedMultiSpell"
+    name: windbolt-hit
+    require-entity-target: true
+    spells:
+        - windbolt-pain
+        - windbolt-throw
+windbolt-pain:
+    spell-class: ".targeted.PainSpell"
+    name: windbolt-pain
+    ignore-armor: false
+    damage: 4
+    obey-los: false
+    target-players: true
+    check-plugins: true
+windbolt-throw:
+    spell-class: ".targeted.ForcetossSpell"
+    name: windbolt-throw
+    rotation: 0
+    vertical-force: 4
+    horizontal-force: 4
+
+# Fire spells
+
 flamebolt:
     spell-class: ".instant.ParticleProjectileSpell"
     name: flamebolt
@@ -402,6 +460,66 @@ burningspeed-ignite-enemies:
     fire-tick-damage: 2
     prevent-immunity: true
     check-plugins: true
+
+# Nature spells
+
+naturebolt:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: naturebolt
+    projectile-velocity: 10
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: happyVillager
+    particle-speed: 0.01
+    particle-count: 15
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    max-distance: 10
+    max-duration: 40
+    hit-radius: 0.75
+    vertical-hit-radius: 0.75
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: false
+    hit-air-during: false
+    stop-on-hit-entity: true
+    stop-on-hit-ground: true
+    spell: naturebolt-hit
+    spell-on-hit-entity: naturebolt-hit
+    cooldown: 10
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You hurl a naturebolt!
+    str-cast-others: "%a hurls a naturebolt!"
+naturebolt-hit:
+    spell-class: ".TargetedMultiSpell"
+    name: naturebolt-hit
+    require-entity-target: true
+    spells:
+        - naturebolt-pain
+        - naturebolt-slow
+naturebolt-pain:
+    spell-class: ".targeted.PainSpell"
+    name: naturebolt-pain
+    ignore-armor: false
+    damage: 4
+    obey-los: false
+    target-players: true
+    check-plugins: true
+naturebolt-slow:
+    spell-class: ".targeted.PotionEffectSpell"
+    name: naturebolt-slow
+    type: slow
+    duration: 20
+    strength: 7
+    ambient: false
+    hidden: false
+    targeted: true
+
 enchantarrows-nature:
     spell-class: ".ExternalCommandSpell"
     name: enchantarrows-nature
@@ -765,3 +883,62 @@ rootsurge-pain:
     damage: 7
     obey-los: false
     target-players: true
+
+# Water spells
+
+aquabolt:
+    spell-class: ".instant.ParticleProjectileSpell"
+    name: aquabolt
+    projectile-velocity: 10
+    tick-interval: 1
+    projectile-gravity: 0
+    projectile-spread: 0
+    particle-name: droplet
+    particle-speed: 0.01
+    particle-count: 15
+    particle-horizontal-spread: 0.2
+    particle-vertical-spread: 0.2
+    max-distance: 10
+    max-duration: 40
+    hit-radius: 0.75
+    vertical-hit-radius: 0.75
+    render-distance: 100
+    hit-players: true
+    hit-non-players: true
+    hit-ground: true
+    hit-air-at-end: false
+    hit-air-during: false
+    stop-on-hit-entity: true
+    stop-on-hit-ground: true
+    spell: aquabolt-hit
+    spell-on-hit-entity: aquabolt-hit
+    cooldown: 10
+    cost:
+        - redstone 10
+    str-cost: "10 redstone"
+    str-cast-self: You hurl an aquabolt!
+    str-cast-others: "%a hurls an aquabolt!"
+aquabolt-hit:
+    spell-class: ".TargetedMultiSpell"
+    name: aquabolt-hit
+    require-entity-target: true
+    spells:
+        - aquabolt-pain
+        - aquabolt-slow
+aquabolt-pain:
+    spell-class: ".targeted.PainSpell"
+    name: aquabolt-pain
+    ignore-armor: false
+    damage: 4
+    obey-los: false
+    target-players: true
+    check-plugins: true
+aquabolt-slow:
+    spell-class: ".targeted.PotionEffectSpell"
+    name: aquabolt-slow
+    type: slow
+    duration: 40
+    strength: 2
+    ambient: false
+    hidden: false
+    targeted: true
